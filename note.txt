@@ -1,0 +1,13 @@
+operations that the user needs to do:
+select a country
+Decide who to fight against
+Choose number of Troops to send into battle
+Select Go to war
+Move troops.
+
+
+Things needed in the game state:
+
+number of troops in every country. Owner of every every country.
+
+To each participant: their current wars, and the state of each. 
