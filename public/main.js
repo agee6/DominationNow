@@ -1,5 +1,9 @@
 
 
+var actionDirections = document.getElementById('currrentAction');
+var confirmationButton = document.getElementById('confirmationButton');
+var denyButton = document.getElementById('denyButton');
+
 
 var socket = io();
 
@@ -13,99 +17,43 @@ function addParticipantsMessage (data) {
   log(message);
 }
 
+
   // Sets the client's username
-  function setUsername () {
+function setUsername (event) {
+  if(event.keyCode === 13){
+    if(userNameInput.value !== ''){
+      socket.emit('login', userNameInput.value);
+    }
 
   }
+
+}
+function startWar(){
+
+  socket.emit('start war', {
+    attack: attackCountry,
+
+  })
+}
+
 
   // Sends a chat message
   function sendMessage () {
 
       // tell server to execute 'new message' and send along one parameter
-      console.log("banana"); 
+      console.log("banana");
       var message = "banana";
       socket.emit('new message', message);
 
   }
 
   // Log a message
-  function log (message, options) {
-    var $el = $('<li>').addClass('log').text(message);
-    addMessageElement($el, options);
-  }
 
-  // Adds the visual chat message to the message list
-  function addChatMessage (data, options) {
-    // Don't fade the message in if there is an 'X was typing'
-    var $typingMessages = getTypingMessages(data);
-    options = options || {};
-    if ($typingMessages.length !== 0) {
-      options.fade = false;
-      $typingMessages.remove();
-    }
-
-    var $usernameDiv = $('<span class="username"/>')
-      .text(data.username)
-      .css('color', getUsernameColor(data.username));
-    var $messageBodyDiv = $('<span class="messageBody">')
-      .text(data.message);
-
-    var typingClass = data.typing ? 'typing' : '';
-    var $messageDiv = $('<li class="message"/>')
-      .data('username', data.username)
-      .addClass(typingClass)
-      .append($usernameDiv, $messageBodyDiv);
-
-    addMessageElement($messageDiv, options);
-  }
-
-  // Adds the visual chat typing message
-  function addChatTyping (data) {
-    data.typing = true;
-    data.message = 'is typing';
-    addChatMessage(data);
-  }
-
-  // Removes the visual chat typing message
-  function removeChatTyping (data) {
-    getTypingMessages(data).fadeOut(function () {
-      $(this).remove();
-    });
-  }
-
-  // Adds a message element to the messages and scrolls to the bottom
-  // el - The element to add as a message
-  // options.fade - If the element should fade-in (default = true)
-  // options.prepend - If the element should prepend
-  //   all other messages (default = false)
-  function addMessageElement (el, options) {
-
-  }
-
-  // Prevents input from having injected markup
-  function cleanInput (input) {
-    return $('<div/>').text(input).text();
-  }
-
-  // Updates the typing event
-  function updateTyping () {
-
-  }
-
-  // Gets the 'X is typing' messages of a user
-  function getTypingMessages (data) {
-    return $('.typing.message').filter(function (i) {
-      return $(this).data('username') === data.username;
-    });
-  }
-
-  // Gets the color of a username through our hash function
-  function getUsernameColor (username) {
-
-  }
 
   // Keyboard events
+  var userNameInput = document.getElementsByClassName('usernameInput')[0];
 
+  var userNameListener = userNameInput.addEventListener('keyup', setUsername);
 
 
 
@@ -121,10 +69,8 @@ function addParticipantsMessage (data) {
   socket.on('login', function (data) {
     var connected = true;
     // Display the welcome message
-    var message = "Welcome to Socket.IO Chat – ";
-    log(message, {
-      prepend: true
-    });
+  
+
     addParticipantsMessage(data);
   });
 

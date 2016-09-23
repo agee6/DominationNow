@@ -3,7 +3,7 @@ var app = express();
 var server = require('http').createServer(app);
 var io = require('socket.io')(server);
 var port = process.env.PORT || 3000;
-var game = require('./Game/Game.js');
+var Game = require('./Game/Game.js');
 
 
 // Routing
@@ -23,6 +23,8 @@ app.get('/', function(req, res){
 });
 
 var numUsers;
+
+var game = new Game();
 io.on('connection', function (socket) {
   var addedUser = false;
   console.log("made a connection");
@@ -33,6 +35,17 @@ io.on('connection', function (socket) {
     console.log(data);
     var returnMessage = data + " grams";
     socket.emit('new message', returnMessage);
+  });
+
+  socket.on('login', function(data){
+    game.addPlayer(data);
+
+    socket.emit('login', {
+      username: data,
+      gameState: game.getGameState(),
+      unOwned: game.getUnOwned()
+    });
+
   });
 
   // when the client emits 'add user', this listens and executes

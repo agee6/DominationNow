@@ -18,6 +18,28 @@ Game.prototype.startGame = function(){
   this.setBoard();
 };
 
+Game.prototype.getGameState = function(){
+  var countryArray= [];
+  for (var i = 0; i < this.board.countries.length; i++) {
+    var curCount = this.board.countries[i];
+    var countObj = {};
+    countObj['name'] = curCount.name;
+    countObj['troops'] = curCount.troops;
+    countObj.owner = curCount.owner.name;
+    countryArray.push(countObj);
+  }
+  var gameState = {};
+  gameState.countries = countryArray;
+  gameState.wars = this.currentWars;
+  return gameState;
+};
+
+
+Game.protoype.getUnOwned = function(){
+  return this.board.unclaimedCountries;
+};
+
+
 Game.prototype.getPlayers = function(){
 
   // Add code here that will connect to players using the pluggins. Need to figure this out this week, asap.
