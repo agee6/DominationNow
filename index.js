@@ -39,11 +39,12 @@ io.on('connection', function (socket) {
 
   socket.on('login', function(data){
     game.addPlayer(data);
-
+    console.log(data);
+    var gameState = game.getGameState();
+    var unOwned = game.getUnOwned();
     socket.emit('login', {
       username: data,
-      gameState: game.getGameState(),
-      unOwned: game.getUnOwned()
+      gameState: gameState 
     });
 
   });

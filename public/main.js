@@ -20,8 +20,10 @@ function addParticipantsMessage (data) {
 
   // Sets the client's username
 function setUsername (event) {
+
   if(event.keyCode === 13){
     if(userNameInput.value !== ''){
+      console.log("We in, yo");
       socket.emit('login', userNameInput.value);
     }
 
@@ -38,14 +40,14 @@ function startWar(){
 
 
   // Sends a chat message
-  function sendMessage () {
+function sendMessage () {
 
-      // tell server to execute 'new message' and send along one parameter
-      console.log("banana");
-      var message = "banana";
-      socket.emit('new message', message);
+    // tell server to execute 'new message' and send along one parameter
+    console.log("banana");
+    var message = "banana";
+    socket.emit('new message', message);
 
-  }
+}
 
   // Log a message
 
@@ -69,14 +71,15 @@ function startWar(){
   socket.on('login', function (data) {
     var connected = true;
     // Display the welcome message
-  
-
-    addParticipantsMessage(data);
+    var loginPage = document.getElementsByClassName("initial-page")[0];
+    loginPage.style.display = "none";
+    console.log(data);
   });
 
   // Whenever the server emits 'new message', update the chat body
   socket.on('new message', function (data) {
     console.log(data);
+
   });
 
   // Whenever the server emits 'user joined', log it in the chat body

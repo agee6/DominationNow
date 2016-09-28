@@ -19,23 +19,23 @@ Game.prototype.startGame = function(){
 };
 
 Game.prototype.getGameState = function(){
-  var countryArray= [];
-  for (var i = 0; i < this.board.countries.length; i++) {
-    var curCount = this.board.countries[i];
-    var countObj = {};
-    countObj['name'] = curCount.name;
-    countObj['troops'] = curCount.troops;
-    countObj.owner = curCount.owner.name;
-    countryArray.push(countObj);
-  }
+  // var countryArray= [];
+  // for (var i = 0; i < this.board.countries.length; i++) {
+  //   var curCount = this.board.countries[i];
+  //   var countObj = {};
+  //   countObj['name'] = curCount.name;
+  //   countObj['troops'] = curCount.troops;
+  //   countObj.owner = curCount.owner.name;
+  //   countryArray.push(countObj);
+  // }
   var gameState = {};
-  gameState.countries = countryArray;
+  gameState.countries = this.board.countries;
   gameState.wars = this.currentWars;
-  return gameState;
+  return this.board.getBoardState();
 };
 
 
-Game.protoype.getUnOwned = function(){
+Game.prototype.getUnOwned = function(){
   return this.board.unclaimedCountries;
 };
 
@@ -45,7 +45,7 @@ Game.prototype.getPlayers = function(){
   // Add code here that will connect to players using the pluggins. Need to figure this out this week, asap.
   var computerNames = ['Nicolas Cage', 'Anita Job', 'Darth Bird', 'Legolas'];
   for (var i = 0; i < this.numPlayers; i++) {
-    if(this.playersName !== null){
+    if(this.playersNames !== null){
       var player = new HumanPlayer(this.playersName);
       this.players.push(player);
       this.playersName = null;
@@ -61,9 +61,10 @@ Game.prototype.setBoard = function(){
 };
 
 Game.prototype.addPlayer = function(name){
-  if(this.playersNames.include(name) !== -1){
+  if(this.playersNames.indexOf(name) !== -1){
     return false;
   }
+  console.log('banana');
   var pl = new HumanPlayer(name);
   this.playersNames.push(name);
   this.players.push(pl);

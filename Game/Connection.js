@@ -1,8 +1,8 @@
 
 
 function Connection(country1, country2){
-  this.src1 = country1;
-  this.src2 = country2;
+  this.country1 = country1;
+  this.country2 = country2;
   this.friendly = true;
   this.atWar = false;
 }
@@ -24,4 +24,12 @@ Connection.prototype.endWar = function(){
   this.updateFriendly();
 };
 
-module.exports = Connection; 
+Connection.prototype.getNeighbor = function(country){
+  if(this.country1 === country){
+    return this.country2;
+  }else{
+    return this.country1;
+  }
+}; 
+
+module.exports = Connection;

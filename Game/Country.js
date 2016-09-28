@@ -10,11 +10,12 @@ function Country(name){
   this.defending = [];
 }
 
-Country.prototype.addConnection = function(){
+Country.prototype.addConnection = function(connection){
   // this.connections = this.connections.concat(arguments);
-  for (var i = 0; i < arguments.length; i++) {
-      this.connections.push(arguments[i]);
-  }
+  // for (var i = 0; i < arguments.length; i++) {
+  //     this.connections.push(arguments[i]);
+  // }
+  this.connections.push(connection);
 };
 
 Country.prototype.neighbors = function(){
