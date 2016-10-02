@@ -11,10 +11,7 @@ function Country(name){
 }
 
 Country.prototype.addConnection = function(connection){
-  // this.connections = this.connections.concat(arguments);
-  // for (var i = 0; i < arguments.length; i++) {
-  //     this.connections.push(arguments[i]);
-  // }
+
   this.connections.push(connection);
 };
 

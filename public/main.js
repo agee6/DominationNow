@@ -3,6 +3,7 @@
 var actionDirections = document.getElementById('currrentAction');
 var confirmationButton = document.getElementById('confirmationButton');
 var denyButton = document.getElementById('denyButton');
+var questPage = document.getElementsByClassName('quest-page')[0];
 
 
 var socket = io();
@@ -17,13 +18,18 @@ function addParticipantsMessage (data) {
   log(message);
 }
 
+function closeModal(){
+  questPage.style.display = 'none';
+  window.removeListener('click', closeModal);
+
+}
+
 
   // Sets the client's username
 function setUsername (event) {
 
   if(event.keyCode === 13){
     if(userNameInput.value !== ''){
-      console.log("We in, yo");
       socket.emit('login', userNameInput.value);
     }
 
@@ -73,6 +79,8 @@ function sendMessage () {
     // Display the welcome message
     var loginPage = document.getElementsByClassName("initial-page")[0];
     loginPage.style.display = "none";
+    questPage.style.display = "block";
+    window.addEventListener('click', closeModal);
     console.log(data);
   });
 

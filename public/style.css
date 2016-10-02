@@ -71,8 +71,8 @@ ul {
 }
 .main-title{
   font-size: 400%;
-  color: rgba(20, 20, 100, 0.9);
-  font-weight: 100;
+  color: rgba(100, 120, 200, 0.9);
+  font-weight: 150;
   /*text-shadow: 2px 2px white;*/
   -webkit-stroke-width: 5.3px;
   -webkit-stroke-color: #FFFFFF;
@@ -87,11 +87,12 @@ ul {
    -webkit-stroke-width: 5.3px;
    -webkit-stroke-color: #FFFFFF;
    -webkit-fill-color: #FFFFFF;
-   text-shadow: 1px 0px 20px white;
+   text-shadow: 1px 10px 20px white;
    -webkit-transition: width 0.3s; /*Safari & Chrome*/
    transition: width 0.3s;
    -moz-transition: width 0.3s; /* Firefox 4 */
    -o-transition: width 0.3s; /* Opera */
+   color: white;
 
 }
 
@@ -107,4 +108,12 @@ ul {
 .login.page .title, .login.page .usernameInput {
   color: #fff;
   font-weight: 100;
+}
+
+.quest-page{
+  background-color: rgba(200,200,200, 0.5);
+  display: "none";
+}
+.quest{
+  display:'none';
 }
